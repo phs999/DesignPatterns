@@ -7,6 +7,7 @@ public class Tank {
 	private int x, y;
 	private Dir dir = Dir.DOWN;
 	private boolean moving=false;
+	private static final int speed=5;
 	public boolean isMoving() {
 		return moving;
 	}
@@ -19,7 +20,6 @@ public class Tank {
 	public void setDir(Dir dir) {
 		this.dir = dir;
 	}
-	private static final int speed=10;
 	public Tank(int x, int y, Dir dir) {
 		super();
 		this.x = x;
