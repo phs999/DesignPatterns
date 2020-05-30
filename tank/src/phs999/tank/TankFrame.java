@@ -10,6 +10,8 @@ import java.awt.event.WindowEvent;
 public class TankFrame extends Frame {
 
 	int x = 200, y = 200;
+	Dir dir = Dir.DOWN;
+	final int speed=10;
 
 	public TankFrame() {
 		setSize(800, 600);// 像素px
@@ -37,6 +39,23 @@ public class TankFrame extends Frame {
 	public void paint(Graphics g) {
 		// System.out.println("paint");
 		g.fillRect(x, y, 50, 50);
+		switch (dir) {
+		case LEFT:
+			x-=speed;
+			break;
+		case RIGHT:
+			x+=speed;
+			break;
+		case UP:
+			y-=speed;
+			break;
+		case DOWN:
+			y+=speed;
+			break;
+
+		default:
+			break;
+		}
 		//x += 10;
 	}
 
@@ -70,17 +89,24 @@ public class TankFrame extends Frame {
 			// x+=200;
 			// y+=10;
 			// repaint();
+			setMainTankDir();
+			/*
+			 * if (bL) { x-=10; } if (bR) { x+=10; } if (bU) { y-=10; } if (bD) { y+=10; }
+			 */
+		}
+
+		private void setMainTankDir() {
 			if (bL) {
-				x-=10;
+				dir=Dir.LEFT;
 			}
 			if (bR) {
-				x+=10;
+				dir=Dir.RIGHT;
 			}
 			if (bU) {
-				y-=10;
+				dir=Dir.UP;
 			}
 			if (bD) {
-				y+=10;
+				dir=Dir.DOWN;
 			}
 		}
 
@@ -104,6 +130,7 @@ public class TankFrame extends Frame {
 			default:
 				break;
 			}
+			setMainTankDir();
 		
 		}
 	}
