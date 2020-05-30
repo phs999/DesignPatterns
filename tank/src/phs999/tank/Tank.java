@@ -1,5 +1,6 @@
 package phs999.tank;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 
@@ -27,7 +28,10 @@ public class Tank {
 		this.dir = dir;
 	}
 	public void paint(Graphics g) {
+		Color color=g.getColor();
+		g.setColor(Color.YELLOW);
 		g.fillRect(x, y, 50, 50);
+		g.setColor(color);
 		move();
 	}
 	private void move() {

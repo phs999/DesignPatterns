@@ -1,7 +1,9 @@
 package phs999.tank;
 
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -11,9 +13,10 @@ public class TankFrame extends Frame {
 
 	Tank tank = new Tank(200, 200, Dir.DOWN);
 	Bullet bullet =new Bullet(300, 300, Dir.DOWN);
+	static final int GAME_WIDTH=800,GAME_HEIGHT=600;
 	
 	public TankFrame() {
-		setSize(800, 600);// 像素px
+		setSize(GAME_WIDTH, GAME_HEIGHT);// 像素px
 		setResizable(false);// 禁止改变大小
 		setTitle("tank war");
 		setVisible(true);// 设置可见性
@@ -32,6 +35,22 @@ public class TankFrame extends Frame {
 				System.exit(0);
 			}
 		});
+	}
+	
+	Image offScreenImage = null;
+
+	@Override
+	public void update(Graphics g) {
+		if (offScreenImage == null) {
+			offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+		}
+		Graphics gOffScreen = offScreenImage.getGraphics();
+		Color c = gOffScreen.getColor();
+		gOffScreen.setColor(Color.BLACK);
+		gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+		gOffScreen.setColor(c);
+		paint(gOffScreen);
+		g.drawImage(offScreenImage, 0, 0, null);
 	}
 
 	@Override
