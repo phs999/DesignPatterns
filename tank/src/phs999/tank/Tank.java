@@ -2,6 +2,7 @@ package phs999.tank;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
 public class Tank {
 	private int x, y;
@@ -12,6 +13,8 @@ public class Tank {
 	private static int HEIGHT=ResourceMgr.tankD.getHeight();
 	private TankFrame tf=null;
 	private boolean live=true;
+	private Group group=Group.BAD;
+	private Random random=new Random();
 	public int getX() {
 		return x;
 	}
@@ -34,6 +37,14 @@ public class Tank {
 	public static int getHEIGHT() {
 		return HEIGHT;
 	}
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
 	public boolean isMoving() {
 		return moving;
 	}
@@ -50,16 +61,17 @@ public class Tank {
 		this.dir = dir;
 	}
 
-	public Tank(int x, int y, Dir dir,TankFrame tf) {
+	public Tank(int x, int y, Dir dir,Group group,TankFrame tf) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
+		this.group=group;
 		this.tf=tf;
 	}
 
 	public void paint(Graphics g) {
-		if (!live) {
+		if (!live&&this.group.equals(Group.BAD)) {
 			tf.enemyTanks.remove(this);
 			return;
 		}
@@ -78,6 +90,9 @@ public class Tank {
 			break;
 		default:
 			break;
+		}
+		if (random.nextInt(100)>95&&this.group.equals(Group.BAD)) {
+			this.fire();
 		}
 		move();
 	}
@@ -103,7 +118,7 @@ public class Tank {
 		default:
 			break;
 		}
-
+		
 	}
 	
 	  public void fire() { 
@@ -130,7 +145,7 @@ public class Tank {
 			break;
 		}
 			 		  
-		  tf.bullets.add(new Bullet(bX, bY, dir,tf));
+		  tf.bullets.add(new Bullet(bX, bY, dir,this.group,tf));
 	  
 	  }
 

@@ -1,6 +1,5 @@
 package phs999.tank;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -12,11 +11,13 @@ public class Bullet {
 	private int x, y;
 	private Dir dir;
 	private boolean live=true;
+	private Group group=Group.BAD;
 	private TankFrame tf=null;
-	public Bullet(int x, int y, Dir dir,TankFrame tf) {
+	public Bullet(int x, int y, Dir dir,Group group,TankFrame tf) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
+		this.group=group;
 		this.tf=tf;
 	}
 	public static int getWIDTH() {
@@ -82,7 +83,7 @@ public class Bullet {
 	public void collideWith(Tank tank) {
 		Rectangle rect1=new Rectangle(this.x, this.y, this.WIDTH, this.HEIGHT);
 		Rectangle rect2=new Rectangle(tank.getX(), tank.getY(), tank.getWIDTH(), tank.getHEIGHT());
-		if (rect1.intersects(rect2)) {
+		if (rect1.intersects(rect2)&&!this.group.equals(tank.getGroup())) {
 			tank.die();
 			this.die();
 		}
