@@ -5,7 +5,9 @@ import java.awt.Graphics;
 
 public class Bullet {
 	private static final int speed=3;
-	private static int WIDTH=10,HEIGHT=10;
+	private static int WIDTH=ResourceMgr.bulletD.getWidth();
+	private static int HEIGHT=ResourceMgr.bulletD.getHeight();
+
 	private int x, y;
 	private Dir dir;
 	private boolean live=true;
@@ -15,6 +17,13 @@ public class Bullet {
 		this.y = y;
 		this.dir = dir;
 		this.tf=tf;
+	}
+	public static int getWIDTH() {
+		return WIDTH;
+	}
+	
+	public static int getHEIGHT() {
+		return HEIGHT;
 	}
 	
 	public void paint(Graphics g) {

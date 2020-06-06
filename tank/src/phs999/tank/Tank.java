@@ -8,6 +8,8 @@ public class Tank {
 	private Dir dir = Dir.UP;
 	private boolean moving = false;
 	private static final int speed = 5;
+	private static int WIDTH=ResourceMgr.tankD.getWidth();
+	private static int HEIGHT=ResourceMgr.tankD.getHeight();
 	private TankFrame tf=null;
 
 	public boolean isMoving() {
@@ -80,7 +82,30 @@ public class Tank {
 	}
 	
 	  public void fire() { 
-		  tf.bullets.add(new Bullet(x+19, y+22, dir,tf));
+		  int bX=0;//x+19;
+		  int bY=0;//y+22;
+		  switch (dir) {
+		  case UP:
+			bX=this.x+this.WIDTH/2-Bullet.getWIDTH()/3;
+			bY=this.y;
+			break;
+		  case DOWN:
+				bX=this.x+this.WIDTH/2-3*Bullet.getWIDTH()/5;
+				bY=this.y+this.HEIGHT-Bullet.getHEIGHT();
+				break;
+		  case LEFT:
+				bX=this.x;
+				bY=this.y+this.HEIGHT/2-Bullet.getHEIGHT()/4;
+				break;
+		  case RIGHT:
+				bX=this.x+this.WIDTH-Bullet.getWIDTH();
+				bY=this.y+this.HEIGHT/2-Bullet.getHEIGHT()/4;
+				break;
+		default:
+			break;
+		}
+			 		  
+		  tf.bullets.add(new Bullet(bX, bY, dir,tf));
 	  
 	  }
 	 
