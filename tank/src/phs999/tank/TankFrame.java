@@ -71,6 +71,13 @@ public class TankFrame extends Frame {
 		for (int i = 0; i < enemyTanks.size();i++) {
 			enemyTanks.get(i).paint(g);
 		}
+		for (int i = 0; i <bullets.size(); i++) {
+			for (int j = 0; j < enemyTanks.size(); j++) {
+				bullets.get(i).collideWith(enemyTanks.get(j));
+				
+			}
+			
+		}
 		/*
 		 * for (Bullet bullet : bullets) { bullet.paint(g); }
 		 */

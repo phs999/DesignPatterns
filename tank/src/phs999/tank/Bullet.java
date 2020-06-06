@@ -2,6 +2,7 @@ package phs999.tank;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class Bullet {
 	private static final int speed=3;
@@ -73,5 +74,21 @@ public class Bullet {
 			live=false;
 		}
 		
+	}
+	/**
+	 * 判断子弹与坦克相交，子弹与坦克都消失
+	 * @param tank
+	 */
+	public void collideWith(Tank tank) {
+		Rectangle rect1=new Rectangle(this.x, this.y, this.WIDTH, this.HEIGHT);
+		Rectangle rect2=new Rectangle(tank.getX(), tank.getY(), tank.getWIDTH(), tank.getHEIGHT());
+		if (rect1.intersects(rect2)) {
+			tank.die();
+			this.die();
+		}
+		
+	}
+	private void die() {
+		live=false;
 	}
 }
