@@ -68,6 +68,9 @@ public class Tank {
 		this.dir = dir;
 		this.group=group;
 		this.tf=tf;
+		if (group.equals(Group.BAD)) {
+			moving=true;
+		}
 	}
 
 	public void paint(Graphics g) {
@@ -91,9 +94,6 @@ public class Tank {
 		default:
 			break;
 		}
-		if (random.nextInt(100)>95&&this.group.equals(Group.BAD)) {
-			this.fire();
-		}
 		move();
 	}
 
@@ -101,6 +101,7 @@ public class Tank {
 		if (!moving) {
 			return;
 		}
+		randomDir();
 		switch (dir) {
 		case LEFT:
 			x -= speed;
@@ -118,9 +119,16 @@ public class Tank {
 		default:
 			break;
 		}
+		if (random.nextInt(100)>95&&this.group.equals(Group.BAD)) {
+			this.fire();
+		}
 		
 	}
-	
+	private void randomDir() {
+		if (random.nextInt(100)>97&&this.group.equals(Group.BAD)) {
+			this.dir=Dir.values()[random.nextInt(4)];
+		}
+	}
 	  public void fire() { 
 		  int bX = this.x + Tank.WIDTH/2 - Bullet.getWIDTH()/2;
 			int bY = this.y + Tank.HEIGHT/2 - Bullet.getHEIGHT()/2;

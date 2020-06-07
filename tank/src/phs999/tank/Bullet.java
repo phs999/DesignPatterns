@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public class Bullet {
-	private static final int speed=3;
+	private static final int speed=6;
 	private static int WIDTH=ResourceMgr.bulletD.getWidth();
 	private static int HEIGHT=ResourceMgr.bulletD.getHeight();
 
