@@ -1,13 +1,13 @@
 package phs999.tank;
 
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.Random;
 
 public class Tank {
 	private int x, y;
 	private Dir dir = Dir.UP;
-	private boolean moving = false;
+	private boolean moving = false;//默认坦克不自动移动
 	private static final int speed = 5;
 	private static int WIDTH=ResourceMgr.goodTankD.getWidth();
 	private static int HEIGHT=ResourceMgr.goodTankD.getHeight();
@@ -15,6 +15,7 @@ public class Tank {
 	private boolean live=true;
 	private Group group=Group.BAD;
 	private Random random=new Random();
+	Rectangle rect=new Rectangle();
 	public int getX() {
 		return x;
 	}
@@ -71,6 +72,10 @@ public class Tank {
 		if (group.equals(Group.BAD)) {
 			moving=true;
 		}
+		rect.x=x;
+		rect.y=y;
+		rect.width=WIDTH;
+		rect.height=HEIGHT;
 	}
 
 	public void paint(Graphics g) {
@@ -143,6 +148,8 @@ public class Tank {
 			this.fire();
 		}
 		boundsCheck();
+		rect.x=x;
+		rect.y=y;
 		
 	}
 	private void boundsCheck() {
