@@ -9,8 +9,8 @@ public class Tank {
 	private Dir dir = Dir.UP;
 	private boolean moving = false;
 	private static final int speed = 5;
-	private static int WIDTH=ResourceMgr.tankD.getWidth();
-	private static int HEIGHT=ResourceMgr.tankD.getHeight();
+	private static int WIDTH=ResourceMgr.goodTankD.getWidth();
+	private static int HEIGHT=ResourceMgr.goodTankD.getHeight();
 	private TankFrame tf=null;
 	private boolean live=true;
 	private Group group=Group.BAD;
@@ -78,22 +78,42 @@ public class Tank {
 			tf.enemyTanks.remove(this);
 			return;
 		}
-		switch (dir) {
-		case LEFT:
-			g.drawImage(ResourceMgr.tankL, x, y, null);
-			break;
-		case RIGHT:
-			g.drawImage(ResourceMgr.tankR, x, y, null);
-			break;
-		case UP:
-			g.drawImage(ResourceMgr.tankU, x, y, null);
-			break;
-		case DOWN:
-			g.drawImage(ResourceMgr.tankD, x, y, null);
-			break;
-		default:
-			break;
+		if (group.equals(Group.BAD)) {
+			switch (dir) {
+			case LEFT:
+				g.drawImage(ResourceMgr.badTankL, x, y, null);
+				break;
+			case RIGHT:
+				g.drawImage(ResourceMgr.badTankR, x, y, null);
+				break;
+			case UP:
+				g.drawImage(ResourceMgr.badTankU, x, y, null);
+				break;
+			case DOWN:
+				g.drawImage(ResourceMgr.badTankD, x, y, null);
+				break;
+			default:
+				break;
+			}
+		}else {
+			switch (dir) {
+			case LEFT:
+				g.drawImage(ResourceMgr.goodTankL, x, y, null);
+				break;
+			case RIGHT:
+				g.drawImage(ResourceMgr.goodTankR, x, y, null);
+				break;
+			case UP:
+				g.drawImage(ResourceMgr.goodTankU, x, y, null);
+				break;
+			case DOWN:
+				g.drawImage(ResourceMgr.goodTankD, x, y, null);
+				break;
+			default:
+				break;
+			}
 		}
+		
 		move();
 	}
 
@@ -122,10 +142,27 @@ public class Tank {
 		if (random.nextInt(100)>95&&this.group.equals(Group.BAD)) {
 			this.fire();
 		}
+		boundsCheck();
 		
 	}
+	private void boundsCheck() {
+		if (x<0) {
+			x=0;
+		}
+		if (x>TankFrame.GAME_WIDTH-this.WIDTH) {
+			x=TankFrame.GAME_WIDTH-this.WIDTH;
+		}
+		if (y<30) {
+			y=30;
+		}
+		if (y>TankFrame.GAME_HEIGHT-this.HEIGHT) {
+			y=TankFrame.GAME_HEIGHT-this.HEIGHT;
+		}
+		
+	}
+
 	private void randomDir() {
-		if (random.nextInt(100)>97&&this.group.equals(Group.BAD)) {
+		if (this.group.equals(Group.BAD)&&random.nextInt(100)>97) {
 			this.dir=Dir.values()[random.nextInt(4)];
 		}
 	}
