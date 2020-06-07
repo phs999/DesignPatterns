@@ -135,6 +135,7 @@ public class Tank {
 
 	public void die() {
 		this.live=false;
+		tf.explodes.add(new Explode(x, y, tf));
 	}
 	 
 
