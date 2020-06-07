@@ -122,30 +122,14 @@ public class Tank {
 	}
 	
 	  public void fire() { 
-		  int bX=0;//x+19;
-		  int bY=0;//y+22;
-		  switch (dir) {
-		  case UP:
-			bX=this.x+this.WIDTH/2-Bullet.getWIDTH()/3;
-			bY=this.y;
-			break;
-		  case DOWN:
-				bX=this.x+this.WIDTH/2-3*Bullet.getWIDTH()/5;
-				bY=this.y+this.HEIGHT-Bullet.getHEIGHT();
-				break;
-		  case LEFT:
-				bX=this.x;
-				bY=this.y+this.HEIGHT/2-Bullet.getHEIGHT()/4;
-				break;
-		  case RIGHT:
-				bX=this.x+this.WIDTH-Bullet.getWIDTH();
-				bY=this.y+this.HEIGHT/2-Bullet.getHEIGHT()/4;
-				break;
-		default:
-			break;
-		}
-			 		  
-		  tf.bullets.add(new Bullet(bX, bY, dir,this.group,tf));
+		  int bX = this.x + Tank.WIDTH/2 - Bullet.getWIDTH()/2;
+			int bY = this.y + Tank.HEIGHT/2 - Bullet.getHEIGHT()/2;
+			
+			tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.tf));
+			
+			if(this.group == Group.GOOD) {
+				new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
+			}
 	  
 	  }
 

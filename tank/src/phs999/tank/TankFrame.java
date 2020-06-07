@@ -118,6 +118,7 @@ public class TankFrame extends Frame {
 			// y+=10;
 			// repaint();
 			setMainTankDir();
+			new Thread(()->new Audio("audio/tank_move.wav").play()).start();
 			/*
 			 * if (bL) { x-=10; } if (bR) { x+=10; } if (bU) { y-=10; } if (bD) { y+=10; }
 			 */
