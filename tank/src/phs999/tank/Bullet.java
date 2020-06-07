@@ -10,7 +10,8 @@ public class Bullet {
 
 	private int x, y;
 	private Dir dir;
-	private boolean live=true;
+	Rectangle rect=new Rectangle();
+	private boolean live=true;//子弹活着则可以调用paint方法，遇到敌方坦克或者越界则子弹消失
 	private Group group=Group.BAD;
 	private TankFrame tf=null;
 	public Bullet(int x, int y, Dir dir,Group group,TankFrame tf) {
@@ -19,6 +20,10 @@ public class Bullet {
 		this.dir = dir;
 		this.group=group;
 		this.tf=tf;
+		rect.x=x;
+		rect.y=y;
+		rect.width=WIDTH;
+		rect.height=HEIGHT;
 	}
 	public static int getWIDTH() {
 		return WIDTH;
@@ -71,6 +76,11 @@ public class Bullet {
 			break;
 		}
 		
+		//update rect
+		rect.x=x;
+		rect.y=y;
+		
+		//子弹越界后不再进行绘制paint
 		if (x<0||y<0||x>TankFrame.GAME_WIDTH||y>TankFrame.GAME_HEIGHT) {
 			live=false;
 		}
@@ -84,9 +94,7 @@ public class Bullet {
 		if (this.group.equals(tank.getGroup())) {
 			return;
 		}
-		Rectangle rect1=new Rectangle(this.x, this.y, this.WIDTH, this.HEIGHT);
-		Rectangle rect2=new Rectangle(tank.getX(), tank.getY(), tank.getWIDTH(), tank.getHEIGHT());
-		if (rect1.intersects(rect2)) {
+		if (rect.intersects(tank.rect)) {
 			tank.die();
 			this.die();
 		}
