@@ -1,19 +1,20 @@
 package behavioral.strategy.example2;
 
-public class Sorter {
+public class Sorter <T>{
 	
-	public static void sort(Comparable [] array) {
+	public void sort(T [] array,Comparator<T> comparator) {
 		for (int i = 0; i < array.length-1; i++) {
 			int minPos=i;
 			for (int j = i+1; j < array.length; j++) {
-				minPos=array[j].compareTo(array[minPos])<0 ? j:minPos;
+				minPos=comparator.compare(array[j], array[minPos])<0 ? j:minPos;
 			}
 			swap(array,i,minPos);
 		}
 	}
 
-	private static void swap(Comparable[] array,int i,int j) {
-		Comparable temp=array[i];
+
+	private void swap(T[] array,int i,int j) {
+		T temp=array[i];
 		array[i]=array[j];
 		array[j]=temp;
 	}
