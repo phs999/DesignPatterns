@@ -16,6 +16,7 @@ public class Tank {
 	private Group group=Group.BAD;
 	private Random random=new Random();
 	Rectangle rect=new Rectangle();
+	FireSrategy fs;
 	public int getX() {
 		return x;
 	}
@@ -100,6 +101,8 @@ public class Tank {
 			default:
 				break;
 			}
+			
+			fire(RandomFireStrategy.getFireStrategy());
 		}else {
 			switch (dir) {
 			case LEFT:
@@ -144,14 +147,16 @@ public class Tank {
 		default:
 			break;
 		}
-		if (random.nextInt(100)>95&&this.group.equals(Group.BAD)) {
-			this.fire();
-		}
+		
 		boundsCheck();
 		rect.x=x;
 		rect.y=y;
 		
 	}
+	void fire(FireSrategy fs) {
+		fs.fire(this);
+	}
+
 	private void boundsCheck() {
 		if (x<0) {
 			x=0;
@@ -173,22 +178,14 @@ public class Tank {
 			this.dir=Dir.values()[random.nextInt(4)];
 		}
 	}
-	  public void fire() { 
-		  int bX = this.x + Tank.WIDTH/2 - Bullet.getWIDTH()/2;
-			int bY = this.y + Tank.HEIGHT/2 - Bullet.getHEIGHT()/2;
-			
-			tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.tf));
-			
-			if(this.group == Group.GOOD) {
-				new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
-			}
-	  
-	  }
 
 	public void die() {
 		this.live=false;
 		tf.explodes.add(new Explode(x, y, tf));
 	}
-	 
+
+	public TankFrame getTf() {
+		return this.tf;
+	}
 
 }
