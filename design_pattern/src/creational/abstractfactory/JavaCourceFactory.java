@@ -8,8 +8,8 @@ public class JavaCourceFactory implements CourseFactory{
 	}
 
 	@Override
-	public Aticle getAticle() {
-		return new JavaAticle();
+	public Article getAticle() {
+		return new JavaArticle();
 	}
 
 }

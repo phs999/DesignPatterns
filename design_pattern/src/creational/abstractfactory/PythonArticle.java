@@ -1,6 +1,6 @@
 package creational.abstractfactory;
 
-public class PythonAticle extends Aticle {
+public class PythonArticle extends Article {
 
 	@Override
 	public void produce() {

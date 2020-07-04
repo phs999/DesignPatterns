@@ -8,8 +8,8 @@ public class PythonCourseFactory implements CourseFactory{
 	}
 
 	@Override
-	public Aticle getAticle() {
-		return new PythonAticle();
+	public Article getAticle() {
+		return new PythonArticle();
 	}
 
 }
