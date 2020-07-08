@@ -11,14 +11,23 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import phs999.tank.abstractfactory.BaseBullet;
+import phs999.tank.abstractfactory.BaseExplode;
+import phs999.tank.abstractfactory.DefaultFactory;
+import phs999.tank.abstractfactory.GameFactory;
+import phs999.tank.abstractfactory.RectFactory;
+
 
 public class TankFrame extends Frame {
 
 	Tank myTank = new Tank(200, 400, Dir.UP,Group.GOOD,this);
-	List<Bullet> bullets =new ArrayList<>();
+	public List<BaseBullet> bullets =new ArrayList<>();
 	List<Tank> enemyTanks=new ArrayList<>();
-	List<Explode> explodes=new ArrayList<>();
-	static final int GAME_WIDTH=800,GAME_HEIGHT=600;
+	public List<BaseExplode> explodes=new ArrayList<>();
+	public static final int GAME_WIDTH=800;
+	public static final int GAME_HEIGHT=600;
+	//GameFactory gameFactory=new DefaultFactory();
+	GameFactory gameFactory=new RectFactory();
 	
 	public TankFrame() {
 		setSize(GAME_WIDTH, GAME_HEIGHT);// 像素px

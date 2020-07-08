@@ -1,18 +1,20 @@
-package phs999.tank;
+package phs999.tank.abstractfactory;
 
+import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
-import phs999.tank.abstractfactory.BaseExplode;
+import phs999.tank.Audio;
+import phs999.tank.ResourceMgr;
+import phs999.tank.TankFrame;
 
-public class Explode extends BaseExplode{
+public class RectExplode extends BaseExplode {
 	private static int WIDTH=ResourceMgr.explodes[0].getWidth();
 	private static int HEIGHT=ResourceMgr.explodes[0].getHeight();
 
 	private int x, y;
 	private TankFrame tf=null;
 	private int step=0;
-	public Explode(int x, int y,TankFrame tf) {
+	public RectExplode(int x, int y,TankFrame tf) {
 		this.x = x;
 		this.y = y;
 		this.tf=tf;
@@ -27,12 +29,15 @@ public class Explode extends BaseExplode{
 	}
 	@Override
 	public void paint(Graphics g) {
-		g.drawImage(ResourceMgr.explodes[step++], x, y, null);
-		
-		if (step>=ResourceMgr.explodes.length) {
+		Color color=g.getColor();
+		g.setColor(Color.RED);
+		g.fillRect(x, y, 10*step, 10*step);
+		//g.drawImage(ResourceMgr.explodes[step++], x, y, null);
+		step++;
+		if (step>=10) {
 			tf.explodes.remove(this);
 		}
+		g.setColor(color);
 	}
-	
-	
+
 }

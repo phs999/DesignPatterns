@@ -1,11 +1,17 @@
-package phs999.tank;
+package phs999.tank.abstractfactory;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import phs999.tank.Dir;
+import phs999.tank.Group;
+import phs999.tank.ResourceMgr;
+import phs999.tank.Tank;
+import phs999.tank.TankFrame;
 import phs999.tank.abstractfactory.BaseBullet;
 
-public class Bullet extends BaseBullet{
+public class RectBullet extends BaseBullet{
 	private static final int speed=6;
 	private static int WIDTH=ResourceMgr.bulletD.getWidth();
 	private static int HEIGHT=ResourceMgr.bulletD.getHeight();
@@ -16,7 +22,7 @@ public class Bullet extends BaseBullet{
 	private boolean live=true;//子弹活着则可以调用paint方法，遇到敌方坦克或者越界则子弹消失
 	private Group group=Group.BAD;
 	private TankFrame tf=null;
-	public Bullet(int x, int y, Dir dir,Group group,TankFrame tf) {
+	public RectBullet(int x, int y, Dir dir,Group group,TankFrame tf) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
@@ -41,22 +47,10 @@ public class Bullet extends BaseBullet{
 			tf.bullets.remove(this);
 			return;
 		}
-		switch (dir) {
-		case LEFT:
-			g.drawImage(ResourceMgr.bulletL, x, y, null);
-			break;
-		case RIGHT:
-			g.drawImage(ResourceMgr.bulletR, x, y, null);
-			break;
-		case UP:
-			g.drawImage(ResourceMgr.bulletU, x, y, null);
-			break;
-		case DOWN:
-			g.drawImage(ResourceMgr.bulletD, x, y, null);
-			break;
-		default:
-			break;
-		}
+		Color color=g.getColor();
+		g.setColor(Color.YELLOW);
+		g.fillRect(x, y, 10, 10);
+		g.setColor(color);
 		move();
 	}
 	

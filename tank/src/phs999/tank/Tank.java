@@ -4,7 +4,9 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
-public class Tank {
+import phs999.tank.abstractfactory.BaseTank;
+
+public class Tank extends BaseTank{
 	private int x, y;
 	private Dir dir = Dir.UP;
 	private boolean moving = false;//默认坦克不自动移动
@@ -15,7 +17,7 @@ public class Tank {
 	private boolean live=true;
 	private Group group=Group.BAD;
 	private Random random=new Random();
-	Rectangle rect=new Rectangle();
+	public Rectangle rect=new Rectangle();
 	FireSrategy fs;
 	public int getX() {
 		return x;
@@ -78,7 +80,7 @@ public class Tank {
 		rect.width=WIDTH;
 		rect.height=HEIGHT;
 	}
-
+	@Override
 	public void paint(Graphics g) {
 		if (!live&&this.group.equals(Group.BAD)) {
 			tf.enemyTanks.remove(this);
@@ -181,7 +183,8 @@ public class Tank {
 
 	public void die() {
 		this.live=false;
-		tf.explodes.add(new Explode(x, y, tf));
+		//tf.explodes.add(new Explode(x, y, tf));
+		tf.explodes.add(tf.gameFactory.createExplode(x, y, tf));
 	}
 
 	public TankFrame getTf() {
