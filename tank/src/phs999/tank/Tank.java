@@ -11,7 +11,7 @@ public class Tank {
 	private static final int speed = 5;
 	private static int WIDTH=ResourceMgr.goodTankD.getWidth();
 	private static int HEIGHT=ResourceMgr.goodTankD.getHeight();
-	private TankFrame tf=null;
+	private GameModelFacade gm;
 	private boolean live=true;
 	private Group group=Group.BAD;
 	private Random random=new Random();
@@ -63,13 +63,13 @@ public class Tank {
 		this.dir = dir;
 	}
 
-	public Tank(int x, int y, Dir dir,Group group,TankFrame tf) {
+	public Tank(int x, int y, Dir dir,Group group,GameModelFacade gm) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 		this.group=group;
-		this.tf=tf;
+		this.gm=gm;
 		if (group.equals(Group.BAD)) {
 			moving=true;
 		}
@@ -81,7 +81,7 @@ public class Tank {
 
 	public void paint(Graphics g) {
 		if (!live&&this.group.equals(Group.BAD)) {
-			tf.enemyTanks.remove(this);
+			gm.enemyTanks.remove(this);
 			return;
 		}
 		if (group.equals(Group.BAD)) {
@@ -181,11 +181,11 @@ public class Tank {
 
 	public void die() {
 		this.live=false;
-		tf.explodes.add(new Explode(x, y, tf));
+		gm.explodes.add(new Explode(x, y, gm));
 	}
 
-	public TankFrame getTf() {
-		return this.tf;
+	public GameModelFacade getGm() {
+		return this.gm;
 	}
 
 }
