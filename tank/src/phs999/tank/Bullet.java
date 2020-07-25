@@ -3,7 +3,7 @@ package phs999.tank;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class Bullet {
+public class Bullet extends GameObject{
 	private static final int speed=6;
 	private static int WIDTH=ResourceMgr.bulletD.getWidth();
 	private static int HEIGHT=ResourceMgr.bulletD.getHeight();
@@ -14,6 +14,12 @@ public class Bullet {
 	private boolean live=true;//子弹活着则可以调用paint方法，遇到敌方坦克或者越界则子弹消失
 	private Group group=Group.BAD;
 	private GameModelFacade gm=null;
+	public Rectangle getRect() {
+		return rect;
+	}
+	public Group getGroup() {
+		return group;
+	}
 	public Bullet(int x, int y, Dir dir,Group group,GameModelFacade gm) {
 		this.x = x;
 		this.y = y;
@@ -24,7 +30,7 @@ public class Bullet {
 		rect.y=y;
 		rect.width=WIDTH;
 		rect.height=HEIGHT;
-		gm.bullets.add(this);
+		gm.add(this);
 	}
 	public static int getWIDTH() {
 		return WIDTH;
@@ -36,7 +42,7 @@ public class Bullet {
 	
 	public void paint(Graphics g) {
 		if (!live) {
-			gm.bullets.remove(this);
+			gm.remove(this);
 			return;
 		}
 		switch (dir) {
@@ -91,17 +97,17 @@ public class Bullet {
 	 * 判断子弹与坦克相交，子弹与坦克都消失
 	 * @param tank
 	 */
-	public void collideWith(Tank tank) {
-		if (this.group.equals(tank.getGroup())) {
-			return;
-		}
-		if (rect.intersects(tank.rect)) {
-			tank.die();
-			this.die();
-		}
-		
-	}
-	private void die() {
+//	public void collideWith(Tank tank) {
+//		if (this.group.equals(tank.getGroup())) {
+//			return;
+//		}
+//		if (rect.intersects(tank.rect)) {
+//			tank.die();
+//			this.die();
+//		}
+//		
+//	}
+	public void die() {
 		live=false;
 	}
 }

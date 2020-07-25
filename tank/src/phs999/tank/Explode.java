@@ -1,9 +1,8 @@
 package phs999.tank;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
-public class Explode {
+public class Explode extends GameObject{
 	private static int WIDTH=ResourceMgr.explodes[0].getWidth();
 	private static int HEIGHT=ResourceMgr.explodes[0].getHeight();
 
@@ -28,7 +27,7 @@ public class Explode {
 		g.drawImage(ResourceMgr.explodes[step++], x, y, null);
 		
 		if (step>=ResourceMgr.explodes.length) {
-			gm.explodes.remove(this);
+			gm.remove(this);
 		}
 	}
 	

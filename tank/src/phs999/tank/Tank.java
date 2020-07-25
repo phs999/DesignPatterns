@@ -4,8 +4,9 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
-public class Tank {
+public class Tank extends GameObject{
 	private int x, y;
+	private int oldx, oldy;
 	private Dir dir = Dir.UP;
 	private boolean moving = false;//默认坦克不自动移动
 	private static final int speed = 5;
@@ -16,7 +17,11 @@ public class Tank {
 	private Group group=Group.BAD;
 	private Random random=new Random();
 	Rectangle rect=new Rectangle();
+
 	FireSrategy fs;
+	public Rectangle getRect() {
+		return rect;
+	}
 	public int getX() {
 		return x;
 	}
@@ -81,7 +86,7 @@ public class Tank {
 
 	public void paint(Graphics g) {
 		if (!live&&this.group.equals(Group.BAD)) {
-			gm.enemyTanks.remove(this);
+			gm.remove(this);
 			return;
 		}
 		if (group.equals(Group.BAD)) {
@@ -126,6 +131,8 @@ public class Tank {
 	}
 
 	private void move() {
+		oldx=x;
+		oldy=y;
 		if (!moving) {
 			return;
 		}
@@ -153,6 +160,16 @@ public class Tank {
 		rect.y=y;
 		
 	}
+	
+	public void back() {
+		x=oldx;
+		y=oldy;
+		revertDir();
+		boundsCheck();
+		rect.x=x;
+		rect.y=y;
+	}
+	
 	void fire(FireSrategy fs) {
 		fs.fire(this);
 	}
@@ -173,7 +190,7 @@ public class Tank {
 		
 	}
 
-	private void randomDir() {
+	public void randomDir() {
 		if (this.group.equals(Group.BAD)&&random.nextInt(100)>97) {
 			this.dir=Dir.values()[random.nextInt(4)];
 		}
@@ -181,11 +198,38 @@ public class Tank {
 
 	public void die() {
 		this.live=false;
-		gm.explodes.add(new Explode(x, y, gm));
+		gm.add(new Explode(x, y, gm));
 	}
 
 	public GameModelFacade getGm() {
 		return this.gm;
+	}
+	
+	public void revertDir() {
+		switch (dir) {
+		case LEFT:
+			dir=Dir.RIGHT;
+			break;
+		case RIGHT:
+			dir=Dir.LEFT;
+			break;
+		case UP:
+			dir=Dir.DOWN;
+			break;
+		case DOWN:
+			dir=Dir.UP;
+			break;
+
+		default:
+			break;
+		}
+	}
+	
+	public void suspend() {
+		moving=false;
+		revertDir();
+		moving=true;
+		move();
 	}
 
 }
