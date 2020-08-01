@@ -8,13 +8,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class TankFrame extends Frame {
 
-	GameModelFacade gm=new GameModelFacade();
+	GameModelFacade gm=GameModelFacade.getInstance();
 	static final int GAME_WIDTH=800,GAME_HEIGHT=600;
 	
 	public TankFrame() {

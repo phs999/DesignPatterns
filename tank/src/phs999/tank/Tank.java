@@ -12,7 +12,6 @@ public class Tank extends GameObject{
 	private static final int speed = 5;
 	private static int WIDTH=ResourceMgr.goodTankD.getWidth();
 	private static int HEIGHT=ResourceMgr.goodTankD.getHeight();
-	private GameModelFacade gm;
 	private boolean live=true;
 	private Group group=Group.BAD;
 	private Random random=new Random();
@@ -68,13 +67,12 @@ public class Tank extends GameObject{
 		this.dir = dir;
 	}
 
-	public Tank(int x, int y, Dir dir,Group group,GameModelFacade gm) {
+	public Tank(int x, int y, Dir dir,Group group) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 		this.group=group;
-		this.gm=gm;
 		if (group.equals(Group.BAD)) {
 			moving=true;
 		}
@@ -86,7 +84,7 @@ public class Tank extends GameObject{
 
 	public void paint(Graphics g) {
 		if (!live&&this.group.equals(Group.BAD)) {
-			gm.remove(this);
+			GameModelFacade.getInstance().remove(this);
 			return;
 		}
 		if (group.equals(Group.BAD)) {
@@ -198,12 +196,9 @@ public class Tank extends GameObject{
 
 	public void die() {
 		this.live=false;
-		gm.add(new Explode(x, y, gm));
+		GameModelFacade.getInstance().add(new Explode(x, y));
 	}
 
-	public GameModelFacade getGm() {
-		return this.gm;
-	}
 	
 	public void revertDir() {
 		switch (dir) {
@@ -230,6 +225,11 @@ public class Tank extends GameObject{
 		revertDir();
 		moving=true;
 		move();
+	}
+	public void stop() {
+		moving=false;
+		x=oldx;
+		y=oldy;
 	}
 
 }

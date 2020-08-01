@@ -2,4 +2,4 @@
 initTankCount=10
 
 #colliders
-colliders=phs999.tank.cor.TankTankCollider,phs999.tank.cor.BulletTankCollider
+colliders=phs999.tank.cor.TankTankCollider,phs999.tank.cor.BulletTankCollider,phs999.tank.cor.BulletWallCollider,phs999.tank.cor.TankWallCollider

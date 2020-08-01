@@ -1,18 +1,15 @@
 package phs999.tank;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-import phs999.tank.cor.BulletTankCollider;
-import phs999.tank.cor.Collider;
 import phs999.tank.cor.ColliderChain;
-import phs999.tank.cor.TankTankCollider;
 
 public class GameModelFacade {
+	private static GameModelFacade gm=new GameModelFacade();
 
-	Tank myTank = new Tank(200, 400, Dir.UP,Group.GOOD,this);
+	Tank myTank = new Tank(200, 400, Dir.UP,Group.GOOD);
 	/*
 	 * List<Bullet> bullets =new ArrayList<>(); List<Tank> enemyTanks=new
 	 * ArrayList<>(); List<Explode> explodes=new ArrayList<>();
@@ -22,12 +19,21 @@ public class GameModelFacade {
 //	Collider collider2=new TankTankCollider();
 	ColliderChain chain=new ColliderChain();
 	
-	public GameModelFacade() {
+	private GameModelFacade() {
 		 int initTankCount=Integer.parseInt((String)PropertyMgr.get("initTankCount"));
 		 //初始化敌方坦克
 		   for (int i = 0; i < initTankCount; i++) {
-			   objects.add(new Tank(40+80*i, 200, Dir.DOWN,Group.BAD, this));
+			   add(new Tank(40+80*i, 200, Dir.DOWN,Group.BAD));
 			}
+		   add(myTank);
+		   add(new Wall(150, 150, 200, 50));
+		   add(new Wall(550, 150, 200, 50));
+		   add(new Wall(300, 300, 50, 200));
+		   add(new Wall(550, 300, 50, 200));
+	}
+	
+	public static GameModelFacade getInstance() {
+		return gm;
 	}
 	
 	public void paint(Graphics g) {

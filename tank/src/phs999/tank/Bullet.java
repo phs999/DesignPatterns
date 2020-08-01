@@ -13,24 +13,22 @@ public class Bullet extends GameObject{
 	Rectangle rect=new Rectangle();
 	private boolean live=true;//子弹活着则可以调用paint方法，遇到敌方坦克或者越界则子弹消失
 	private Group group=Group.BAD;
-	private GameModelFacade gm=null;
 	public Rectangle getRect() {
 		return rect;
 	}
 	public Group getGroup() {
 		return group;
 	}
-	public Bullet(int x, int y, Dir dir,Group group,GameModelFacade gm) {
+	public Bullet(int x, int y, Dir dir,Group group) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 		this.group=group;
-		this.gm=gm;
 		rect.x=x;
 		rect.y=y;
 		rect.width=WIDTH;
 		rect.height=HEIGHT;
-		gm.add(this);
+		GameModelFacade.getInstance().add(this);
 	}
 	public static int getWIDTH() {
 		return WIDTH;
@@ -42,7 +40,7 @@ public class Bullet extends GameObject{
 	
 	public void paint(Graphics g) {
 		if (!live) {
-			gm.remove(this);
+			GameModelFacade.getInstance().remove(this);
 			return;
 		}
 		switch (dir) {

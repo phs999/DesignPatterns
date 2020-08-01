@@ -14,7 +14,7 @@ public class ColliderChain implements Collider {
 	public ColliderChain(){
 
 		Object colliderString = PropertyMgr.get("colliders");
-		if (colliderString != null && colliderString.equals("")) {
+		if (colliderString != null && !colliderString.equals("")) {
 			String[] arr = colliderString.toString().split(",");
 			for (int i = 0; i < arr.length; i++) {
 				String string = arr[i];
@@ -29,8 +29,8 @@ public class ColliderChain implements Collider {
 			}
 		}
 
-		add(new BulletTankCollider());
-		add(new TankTankCollider());
+		//add(new BulletTankCollider());
+		//add(new TankTankCollider());
 	}
 
 	public void add(Collider collider) {
@@ -43,7 +43,7 @@ public class ColliderChain implements Collider {
 		for (int i = 0; i < colliders.size(); i++) {
 			boolean result = colliders.get(i).collide(o1, o2);
 			if (result) {
-				return true;
+				return true;//不再继续使用其他的碰撞检测
 			}
 		}
 		return false;

@@ -18,7 +18,7 @@ public class FourDirFireStrategy implements FireSrategy{
 			
 			Dir[] dirs=Dir.values();
 			for (int i = 0; i < dirs.length; i++) {
-				new Bullet(bX, bY, dirs[i], tank.getGroup(), tank.getGm());
+				new Bullet(bX, bY, dirs[i], tank.getGroup());
 			}
 			if(tank.getGroup() == Group.GOOD) {
 				new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
