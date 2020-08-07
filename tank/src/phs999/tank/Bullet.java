@@ -8,7 +8,6 @@ public class Bullet extends GameObject{
 	private static int WIDTH=ResourceMgr.bulletD.getWidth();
 	private static int HEIGHT=ResourceMgr.bulletD.getHeight();
 
-	private int x, y;
 	private Dir dir;
 	Rectangle rect=new Rectangle();
 	private boolean live=true;//子弹活着则可以调用paint方法，遇到敌方坦克或者越界则子弹消失
@@ -107,5 +106,13 @@ public class Bullet extends GameObject{
 //	}
 	public void die() {
 		live=false;
+	}
+	@Override
+	public int getWidth() {
+		return WIDTH;
+	}
+	@Override
+	public int getHeight() {
+		return HEIGHT;
 	}
 }

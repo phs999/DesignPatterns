@@ -28,6 +28,14 @@ public class Explode extends GameObject{
 			GameModelFacade.getInstance().remove(this);
 		}
 	}
+	@Override
+	public int getWidth() {
+		return WIDTH;
+	}
+	@Override
+	public int getHeight() {
+		return HEIGHT;
+	}
 	
 	
 }

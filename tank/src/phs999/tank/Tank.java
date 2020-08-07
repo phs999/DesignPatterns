@@ -5,7 +5,6 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 public class Tank extends GameObject{
-	private int x, y;
 	private int oldx, oldy;
 	private Dir dir = Dir.UP;
 	private boolean moving = false;//默认坦克不自动移动
@@ -230,6 +229,14 @@ public class Tank extends GameObject{
 		moving=false;
 		x=oldx;
 		y=oldy;
+	}
+	@Override
+	public int getWidth() {
+		return WIDTH;
+	}
+	@Override
+	public int getHeight() {
+		return HEIGHT;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import phs999.tank.cor.ColliderChain;
+import phs999.tank.decorator.RectDecorator;
 
 public class GameModelFacade {
 	private static GameModelFacade gm=new GameModelFacade();
@@ -26,7 +27,7 @@ public class GameModelFacade {
 			   add(new Tank(40+80*i, 200, Dir.DOWN,Group.BAD));
 			}
 		   add(myTank);
-		   add(new Wall(150, 150, 200, 50));
+		   add(new RectDecorator(new Wall(150, 150, 200, 50)));
 		   add(new Wall(550, 150, 200, 50));
 		   add(new Wall(300, 300, 50, 200));
 		   add(new Wall(550, 300, 50, 200));

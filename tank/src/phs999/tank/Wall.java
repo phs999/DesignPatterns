@@ -5,13 +5,10 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public class Wall extends GameObject{
-	private static int WIDTH=ResourceMgr.bulletD.getWidth();
-	private static int HEIGHT=ResourceMgr.bulletD.getHeight();
 
-	private int x, y;
+	//private int x, y;
 	private int w,h;
 	Rectangle rect;
-	private GameModelFacade gm=null;
 	public Rectangle getRect() {
 		return rect;
 	}
@@ -32,6 +29,14 @@ public class Wall extends GameObject{
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(x, y, w, h);
 		g.setColor(color);
+	}
+	@Override
+	public int getWidth() {
+		return w;
+	}
+	@Override
+	public int getHeight() {
+		return h;
 	}
 	
 }
