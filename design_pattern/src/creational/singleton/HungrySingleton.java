@@ -7,12 +7,17 @@ import java.io.Serializable;
  * @author phs
  *
  */
-public class HungrySingleton implements Serializable {
+public class HungrySingleton implements Serializable,Cloneable {
 	private static final HungrySingleton hungrySingleton=new HungrySingleton();
 	
 	private HungrySingleton() {
 	}
 	public static HungrySingleton getInstance() {
 		return hungrySingleton;
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return getInstance();
 	}
 }
