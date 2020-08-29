@@ -1,13 +1,21 @@
 package phs999.tank;
 
 import java.awt.Graphics;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import phs999.tank.cor.ColliderChain;
 import phs999.tank.decorator.RectDecorator;
 
-public class GameModelFacade {
+public class GameModelFacade{
 	private static GameModelFacade gm=new GameModelFacade();
 
 	Tank myTank = new Tank(200, 400, Dir.UP,Group.GOOD);
@@ -67,5 +75,53 @@ public class GameModelFacade {
 
 	public Tank getMainTank() {
 		return myTank;
+	}
+	
+	public void save() {
+		File f=new File("d:/tank.data");
+		ObjectOutputStream ooStream=null;
+		try {
+			ooStream=new ObjectOutputStream(new FileOutputStream(f));
+			ooStream.writeObject(myTank);
+			ooStream.writeObject(objects);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if (ooStream!=null) {
+				try {
+					ooStream.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public void load() {
+		File f=new File("d:/tank.data");
+		ObjectInputStream oiStream=null;
+		try {
+			oiStream=new ObjectInputStream(new FileInputStream(f));
+			myTank=(Tank) oiStream.readObject();
+			objects=(List<GameObject>) oiStream.readObject();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			if (oiStream!=null) {
+				try {
+					oiStream.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }
